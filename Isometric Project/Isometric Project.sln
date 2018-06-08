@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Isometric Project", "Isometric Project.csproj", "{901C615A-3CD7-76EB-76E6-5ADD1C7DAA2A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{901C615A-3CD7-76EB-76E6-5ADD1C7DAA2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{901C615A-3CD7-76EB-76E6-5ADD1C7DAA2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{901C615A-3CD7-76EB-76E6-5ADD1C7DAA2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{901C615A-3CD7-76EB-76E6-5ADD1C7DAA2A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

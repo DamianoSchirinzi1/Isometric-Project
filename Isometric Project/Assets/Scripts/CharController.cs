@@ -5,47 +5,53 @@ using UnityEngine;
 public class CharController : MonoBehaviour {
 
     [SerializeField]
-    float moveSpeed = 4f;
+    private float speed;
 
-    Vector3 forward, right;
+    private float startingSpeed;
+    private Vector2 direction;
+
 	// Use this for initialization
 	void Start ()
     {
-		forward = Camera.main.transform.forward;
-        forward.y = 0;
-        forward = Vector3.Normalize(forward);
-        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+        startingSpeed = speed;
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-		if(Input.anyKey)
-        {
-            Move();
-        }
+	    Move();
+        GetInput();
 	}
 
-    void Move()
+    public void Move()
+    {        
+        transform.Translate(direction * speed * Time.deltaTime);
+        
+    }
+
+    private void GetInput()
     {
-        Vector3 direction = new Vector3(Input.GetAxis("HorizontalKey"), 0, Input.GetAxis("VerticalKey"));
-        Vector3 rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxis("HorizontalKey");
-        Vector3 upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxis("VerticalKey");
-
-        Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
-
-        if (Input.GetKey(KeyCode.LeftShift))
+        direction = Vector2.zero;
+        
+        if (Input.GetKey(KeyCode.W))
         {
-            moveSpeed = 8f;
-        }
-        else
-        {
-            moveSpeed = 4f;
+            direction = Vector2.up + Vector2.right;
         }
 
-        transform.forward = heading;
-        transform.position += rightMovement;
-        transform.position += upMovement;
+        if (Input.GetKey(KeyCode.A))
+        {
+            direction = Vector2.left + Vector2.up;
+        }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            direction = Vector2.down - Vector2.right;
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            direction = Vector2.right - Vector2.up;
+        }       
 
     }
 }

@@ -8,7 +8,8 @@ public class CharController : MonoBehaviour {
     private float speed;
 
     private float startingSpeed;
-    private Vector2 direction;
+    [HideInInspector]
+    public Vector2 direction;
 
 	// Use this for initialization
 	void Start ()
@@ -25,8 +26,7 @@ public class CharController : MonoBehaviour {
 
     public void Move()
     {        
-        transform.Translate(direction * speed * Time.deltaTime);
-        
+        transform.Translate(direction * speed * Time.deltaTime);        
     }
 
     private void GetInput()

@@ -26,7 +26,11 @@ public class ColliderDetection : MonoBehaviour {
         if (hit.collider != null)
         {
             Debug.Log("Raycast : " + hit.collider.gameObject.tag);
-
+            if(hit.distance <= 0.05f )
+            {
+                print("Player is nearing an obstacle = " + hit.distance);
+                transform.Translate(-CC.direction * 2f * Time.deltaTime);
+            }
             //float distance = Mathf.Abs(hit.point.y - transform.position.y);
             //float heightError = floatHeight - distance;
             //float force = liftForce * heightError - rb2D.velocity.y * damping;

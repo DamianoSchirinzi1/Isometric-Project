@@ -20,7 +20,7 @@ public class CharController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-	    Move();
+        Move();
         GetInput();
 	}
 
@@ -57,5 +57,5 @@ public class CharController : MonoBehaviour {
             direction = Vector2.right - Vector2.up / 2;
         }       
 
-    }
+    }    
 }

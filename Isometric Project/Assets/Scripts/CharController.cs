@@ -26,31 +26,35 @@ public class CharController : MonoBehaviour {
 
     public void Move()
     {        
+        //This method applies force to the player to move it.
         transform.Translate(direction * speed * Time.deltaTime);        
     }
 
     private void GetInput()
     {
+        //Resets direction each time the method is called
         direction = Vector2.zero;
         
+        //This method determines which direction the player should move depending on the input recieved
+        //Divind the Y transform by 2 translates the vector from cartesian coordinates to isometric.
         if (Input.GetKey(KeyCode.W))
         {
-            direction = Vector2.up + Vector2.right;
+            direction = Vector2.up / 2 + Vector2.right;
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            direction = Vector2.left + Vector2.up;
+            direction = Vector2.left + Vector2.up / 2;
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            direction = Vector2.down - Vector2.right;
+            direction = Vector2.down / 2 - Vector2.right;
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            direction = Vector2.right - Vector2.up;
+            direction = Vector2.right - Vector2.up / 2;
         }       
 
     }

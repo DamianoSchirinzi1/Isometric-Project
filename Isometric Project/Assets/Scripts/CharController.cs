@@ -7,26 +7,28 @@ public class CharController : MonoBehaviour {
     [SerializeField]
     private float speed;
 
-    private float startingSpeed = 1f;
+    private float startingSpeed = 1.5f;
     [HideInInspector]
     public Vector2 direction;
 
     //Phase Variables
     SpriteRenderer spriteRenderer;
+    BoxCollider2D boxCollider;
     Color phasingColor;
     int fPressed = 0;
-    bool phasing;
+    public bool phasing;
 
     // Use this for initialization
     void Start()
     {
         phasing = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
-        phasingColor = this.gameObject.GetComponent<SpriteRenderer>().color;        
+        phasingColor = this.gameObject.GetComponent<SpriteRenderer>().color;
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 
         // Update is called once per frame
-        void Update ()
+    void Update ()
     {
         Move();
         GetInput();
@@ -44,15 +46,16 @@ public class CharController : MonoBehaviour {
         //Resets direction each time the method is called
         direction = Vector2.zero;
 
-        bool sprinting = false;
+        //bool sprinting = false;
 
-        while (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            speed += 10f;
-        }                
+        //while (Input.GetKeyDown(KeyCode.LeftShift))
+        //{
+        //    speed += 10f;
+        //}                
         
         //This method determines which direction the player should move depending on the input recieved
         //Divind the Y transform by 2 translates the vector from cartesian coordinates to isometric.
+
         if (Input.GetKey(KeyCode.W))
         {
             direction = Vector2.up / 2 + Vector2.right;
@@ -82,6 +85,7 @@ public class CharController : MonoBehaviour {
             fPressed += 1;
             print("F has been pressed " + fPressed + " times. ");
             //Reduces the sprite renderers alpha value by setting it to the value stored in phasingColor.a
+            boxCollider.enabled = false;
             phasingColor.a -= 0.35f;
             spriteRenderer.GetComponent<SpriteRenderer>().color = phasingColor;         
         }
@@ -89,10 +93,10 @@ public class CharController : MonoBehaviour {
         {
             phasing = false;
             //Raises the sprite renderers alpha value
+            boxCollider.enabled = true;
             phasingColor.a += 0.35f;
             spriteRenderer.GetComponent<SpriteRenderer>().color = phasingColor;
         }
         #endregion
-
     }
 }

@@ -7,18 +7,26 @@ public class CharController : MonoBehaviour {
     [SerializeField]
     private float speed;
 
-    private float startingSpeed;
+    private float startingSpeed = 1f;
     [HideInInspector]
     public Vector2 direction;
 
-	// Use this for initialization
-	void Start ()
+    //Phase Variables
+    SpriteRenderer spriteRenderer;
+    Color phasingColor;
+    int fPressed = 0;
+    bool phasing;
+
+    // Use this for initialization
+    void Start()
     {
-        startingSpeed = speed;
-	}
-	
-	// Update is called once per frame
-	void Update ()
+        phasing = false;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        phasingColor = this.gameObject.GetComponent<SpriteRenderer>().color;        
+    }
+
+        // Update is called once per frame
+        void Update ()
     {
         Move();
         GetInput();
@@ -32,8 +40,16 @@ public class CharController : MonoBehaviour {
 
     private void GetInput()
     {
+        #region Movement
         //Resets direction each time the method is called
         direction = Vector2.zero;
+
+        bool sprinting = false;
+
+        while (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            speed += 10f;
+        }                
         
         //This method determines which direction the player should move depending on the input recieved
         //Divind the Y transform by 2 translates the vector from cartesian coordinates to isometric.
@@ -55,7 +71,28 @@ public class CharController : MonoBehaviour {
         if (Input.GetKey(KeyCode.D))
         {
             direction = Vector2.right - Vector2.up / 2;
-        }       
+        }
+        #endregion
 
-    }    
+        #region GhostPhasing
+        //Checks for input and if player is currently phasing
+        if (Input.GetKeyDown(KeyCode.F) && phasing == false)
+        {
+            phasing = true;
+            fPressed += 1;
+            print("F has been pressed " + fPressed + " times. ");
+            //Reduces the sprite renderers alpha value by setting it to the value stored in phasingColor.a
+            phasingColor.a -= 0.35f;
+            spriteRenderer.GetComponent<SpriteRenderer>().color = phasingColor;         
+        }
+        else if (Input.GetKeyDown(KeyCode.F) && phasing == true)
+        {
+            phasing = false;
+            //Raises the sprite renderers alpha value
+            phasingColor.a += 0.35f;
+            spriteRenderer.GetComponent<SpriteRenderer>().color = phasingColor;
+        }
+        #endregion
+
+    }
 }

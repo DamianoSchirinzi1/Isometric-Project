@@ -2,23 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColliderDetection : MonoBehaviour {
+public class ColliderDetection : MonoBehaviour
+{
 
     CharController CC;
     int layerMask;
-    //public float floatHeight;
-    //public float liftForce;
-    //public float damping;
-    //public Rigidbody2D rb2D;
+
+    //public Vector3 offset;
+
 
     private void Start()
     {
-        //rb2D = GetComponent<Rigidbody2D>();
         layerMask = ~(LayerMask.GetMask("Obstacle"));
         CC = GetComponent<CharController>();
-        //layerMask = LayerMask.NameToLayer("Obstacle");
     }
-    
+
     void FixedUpdate()
     {
         Debug.DrawRay(transform.position, CC.direction, Color.red);
@@ -26,15 +24,14 @@ public class ColliderDetection : MonoBehaviour {
         if (hit.collider != null)
         {
             Debug.Log("Raycast : " + hit.collider.gameObject.tag);
-            if(hit.distance <= 0.08f )
+            if (hit.distance <= 0.08f)
             {
                 print("Player is nearing an obstacle = " + hit.distance);
                 transform.Translate(-CC.direction * 1f * Time.deltaTime);
             }
-            //float distance = Mathf.Abs(hit.point.y - transform.position.y);
-            //float heightError = floatHeight - distance;
-            //float force = liftForce * heightError - rb2D.velocity.y * damping;
-            //rb2D.AddForce(Vector3.up * force);
         }
     }
+
+
 }
+

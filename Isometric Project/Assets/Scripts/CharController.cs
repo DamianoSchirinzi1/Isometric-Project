@@ -18,6 +18,8 @@ public class CharController : MonoBehaviour {
     int fPressed = 0;
     public bool phasing;
 
+    public Transform[] enemyList;
+
     // Use this for initialization
     void Start()
     {
@@ -25,6 +27,7 @@ public class CharController : MonoBehaviour {
         spriteRenderer = GetComponent<SpriteRenderer>();
         phasingColor = this.gameObject.GetComponent<SpriteRenderer>().color;
         boxCollider = GetComponent<BoxCollider2D>();
+        
     }
 
         // Update is called once per frame
@@ -32,6 +35,8 @@ public class CharController : MonoBehaviour {
     {
         Move();
         GetInput();
+        
+        CheckForEnemies(enemyList);
 	}
 
     public void Move()
@@ -59,21 +64,25 @@ public class CharController : MonoBehaviour {
         if (Input.GetKey(KeyCode.W))
         {
             direction = Vector2.up / 2 + Vector2.right;
+            spriteRenderer.flipX = true;
         }
 
         if (Input.GetKey(KeyCode.A))
         {
             direction = Vector2.left + Vector2.up / 2;
+            spriteRenderer.flipX = false;
         }
 
         if (Input.GetKey(KeyCode.S))
         {
             direction = Vector2.down / 2 - Vector2.right;
+            spriteRenderer.flipX = false;
         }
 
         if (Input.GetKey(KeyCode.D))
         {
             direction = Vector2.right - Vector2.up / 2;
+            spriteRenderer.flipX = true;
         }
         #endregion
 
@@ -98,5 +107,29 @@ public class CharController : MonoBehaviour {
             spriteRenderer.GetComponent<SpriteRenderer>().color = phasingColor;
         }
         #endregion
+    }
+
+    Transform CheckForEnemies(Transform[] enemies)
+    {
+        Transform EnemyMin = null;
+        float minDistance = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+
+        //Check for enemy tags
+        foreach (Transform enemy in enemies)
+        {
+            if (enemy.gameObject.tag == "Enemy")
+            {
+                float distance = Vector3.Distance(enemy.position, currentPosition);
+                if(distance < minDistance)
+                {
+                    Debug.Log("Enemy Chosen : " + enemy.gameObject.name);
+                    EnemyMin = enemy;
+                    minDistance = distance;
+                }
+            }
+        }
+        return EnemyMin;
+
     }
 }

@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
+# Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Isometric Project", "Isometric Project.csproj", "{901C615A-3CD7-76EB-76E6-5ADD1C7DAA2A}"
 EndProject
 Global
